@@ -1,31 +1,65 @@
-import { StyleSheet } from 'react-native';
+import { View, Text, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import TopBar from "../../components/ytComponents/TopBar";
+import FilterBar from "../../components/ytComponents/FilterBar";
+import Shorts from "../../components/ytComponents/Shorts";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const index = () => {
 
-export default function TabOneScreen() {
+  const [Active,SetActive] = useState("")
+
+  const handleClick = (Title:string)=>{
+
+    SetActive(Title)
+    
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
-  );
-}
+    <SafeAreaView>
+     <ScrollView>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+
+
+     <View>
+        {/* Top BAr */}
+        <TopBar />
+
+        {/* Filter Bar */}
+
+       <FilterBar ActiveColor="navy" BackgroundColor="orange" TextColor="white">
+
+
+       <FilterBar.FilterButton BackColor="orange" SelectedColor="green" ActiveItem ={Active} OnFilterPress={handleClick} Title="Music"/>
+       
+       <FilterBar.FilterButton BackColor="purple" SelectedColor="black" ActiveItem ={Active} OnFilterPress={handleClick} Title="Best"/>
+       <FilterBar.FilterButton Color="black" BackColor="gray" SelectedColor="yellow" ActiveItem ={Active} OnFilterPress={handleClick} Title="New to you"/>
+       
+       
+       </FilterBar>
+
+
+        <View
+        
+        style={{
+
+      
+         height:'100%',
+         padding:10,
+         gap:10
+        }}
+        >
+
+          <Shorts/>
+          <Shorts/>
+
+          <Shorts/>
+          <Shorts/>
+        </View>
+      </View>
+     </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default index;
